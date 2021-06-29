@@ -1,0 +1,43 @@
+version: "3.3"
+
+services:
+  #db:
+  #  container_name: dbPostgresTodoList
+  #  image: postgres
+  #  restart: always
+  #  ports:
+  #    - "5433:5432"
+  #  environment:
+  #    - POSTGRES_USER=postgres
+  #    - POSTGRES_PASSWORD=1234cinco
+  #    - POSTGRES_DB=tolistdb
+  app:
+    build:
+      args:
+        user: sammy
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: todolist
+    container_name: todolist-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - todolist
+  nginx:
+    image: nginx:alpine
+    container_name: todolist-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./application:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - todolist
+    
+networks:
+  todolist:
+    driver: bridge
