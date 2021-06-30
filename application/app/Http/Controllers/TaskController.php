@@ -25,7 +25,7 @@ class TaskController extends Controller
 
     public function show($task)
     {
-        return $this->task->find($task);
+        return $this->task->findOrFail($task);
     }
 
     public function store(Request $request)
@@ -37,14 +37,14 @@ class TaskController extends Controller
 
     public function update($task, Request $request)
     {
-        $task = $this->task->find($task);
+        $task = $this->task->findOrFail($task);
         $task->update($request->all());
         return response()->json(['data' => ['message' => 'Task atualizada!']]);
     }
 
     public function destroy($task)
     {
-        $task = $this->task->find($task);
+        $task = $this->task->findOrFail($task);
         $task->delete();
         return response()->json(['data' => ['message' => 'Task removido!']]);
     }
