@@ -18,8 +18,8 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->enum('status', array('todo', 'doing'));
-            $table->date('created');
-            $table->date('modified');
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

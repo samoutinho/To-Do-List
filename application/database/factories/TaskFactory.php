@@ -25,8 +25,6 @@ class TaskFactory extends Factory
             'title' => $this->faker->sentence(),
             'description' => $this->faker->sentence(),
             'status' => $this->faker->randomElement(['todo', 'doing']),
-            'created' => $this->faker->date(),
-            'modified' => $this->faker->date(),
         ];
     }
 }
