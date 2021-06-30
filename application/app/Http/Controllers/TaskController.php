@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -30,6 +30,7 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
+        //return $request->all();
         $this->task->create($request->all());
         return response()->json(['data' => ['message' => 'Task criada com sucesso!']]);
     }
