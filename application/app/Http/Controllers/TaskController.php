@@ -32,16 +32,20 @@ class TaskController extends Controller
     {
         //return $request->all();
         $this->task->create($request->all());
-        return response()->json(['data' => ['message' => 'Task criada com sucesso!']]);
+        return response()->json(['data' => ['message' => 'Task criada!']]);
     }
 
-    public function update($task)
+    public function update($task, Request $request)
     {
-        //return $this->task->find($task);
+        $task = $this->task->find($task);
+        $task->update($request->all());
+        return response()->json(['data' => ['message' => 'Task atualizada!']]);
     }
 
     public function destroy($task)
     {
-        //return $this->task->find($task);
+        $task = $this->task->find($task);
+        $task->delete();
+        return response()->json(['data' => ['message' => 'Task removido!']]);
     }
 }
