@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Task;
+use Carbon\Factory;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class TasksTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([TasksTableSeeder::class]);
+        Task::factory()->count(10)->create();
     }
 }
