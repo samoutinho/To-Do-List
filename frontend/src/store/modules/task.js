@@ -49,14 +49,14 @@ const actions = {
   },
   fetchTask(context, query) {
     return request({
-      url: `pms/task`,
+      url: `tasks`,
       method: 'get',
       params: query,
     })
   },
   createTask(context, data) {
     return request({
-      url: `pms/task`,
+      url: `tasks`,
       method: 'post',
       data: data,
     }).then((resp) => {
@@ -65,7 +65,7 @@ const actions = {
   },
   updateTask(context, { id, data }) {
     return request({
-      url: `pms/task/${id}`,
+      url: `tasks/${id}`,
       method: 'put',
       data: data,
     }).then((resp) => {
@@ -74,7 +74,7 @@ const actions = {
   },
   updateTaskStatus(context, { id, status }) {
     return request({
-      url: `pms/task/${id}`,
+      url: `tasks/${id}`,
       method: 'put',
       data: {
         status: status,
@@ -85,13 +85,13 @@ const actions = {
   },
   deleteTask(context, id) {
     return request({
-      url: `pms/task/${id}`,
+      url: `tasks/${id}`,
       method: 'delete',
     })
   },
   getTaskById(context, id) {
     return request({
-      url: `pms/task/${id}`,
+      url: `tasks/${id}`,
       method: 'get',
     }).then((resp) => {
       return resp
