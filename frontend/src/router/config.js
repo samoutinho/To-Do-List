@@ -75,37 +75,6 @@ export const protectedRoute = [
           },
         ],
       },
-
-      //form
-      {
-        path: '/forms',
-        component: RouteWrapper,
-        meta: {
-          title: 'form',
-          icon: 'mdi-form-textbox',
-        },
-        redirect: '/forms/basic',
-        children: [
-          {
-            path: '/forms/basic',
-            name: 'forms.basic',
-            meta: {
-              title: 'basic_form',
-              icon: 'mdi-alpha-b',
-            },
-            component: () => import('@/views/form/BasicForm.vue'),
-          },
-          {
-            path: '/forms/stepper',
-            name: 'forms.stepper',
-            meta: {
-              title: 'step_form',
-              icon: 'mdi-alpha-s',
-            },
-            component: () => import('@/views/form/Steppers.vue'),
-          },
-        ],
-      },
       {
         path: '/403',
         name: 'Forbidden',

@@ -8,9 +8,8 @@
     :width="drawerWidth"
   >
     <v-toolbar color="primary darken-1" dark>
-      <img :src="computeLogo" height="36" alt="Vue Material Admin Template" />
       <v-toolbar-title>
-        <span class="hidden-sm-and-down">Vue Material</span>
+        <span class="hidden-sm-and-down">Tarefas</span>
       </v-toolbar-title>
     </v-toolbar>
     <app-switcher />
