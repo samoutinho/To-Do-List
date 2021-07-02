@@ -10,7 +10,7 @@
 ## Frontend
 ## acessar a pasta `frontend` e instalar as dependnecias com o comando: `yarn install`. Executar o frontend com o comando: `yarn serve`.
 
-### Acessar o backend pela url: http://localhost:8080
+### Acessar o frontend pela url: http://localhost:8080
 
 ## DER 
 ### Arquivo DER.png na raiz do projeto
