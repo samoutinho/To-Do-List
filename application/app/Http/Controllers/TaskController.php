@@ -23,6 +23,11 @@ class TaskController extends Controller
         return $this->task->paginate(10);
     }
 
+    public function indexAll()
+    {
+        return $this->task->all();
+    }
+
     public function show($task)
     {
         return $this->task->findOrFail($task);

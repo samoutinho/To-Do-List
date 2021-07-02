@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-subheader class="pl-0">A simple demo for showing how to build datatable with REST API </v-subheader>
+    <v-subheader class="pl-0">Listando as Tarefas </v-subheader>
     <v-row>
       <v-col cols="12">
         <v-card tile>
@@ -12,7 +12,7 @@
               flat
               :prepend-icon="showFilter ? 'mdi-filter-variant-plus' : 'mdi-filter-variant'"
               append-icon="mdi-magnify"
-              placeholder="Type something"
+              placeholder="Pesquisar"
               hide-details
               clearable
               @keyup.enter="handleApplyFilter"
@@ -32,17 +32,14 @@
             <v-card-text>
               <v-row>
                 <v-col :cols="4">
-                  <v-autocomplete v-model="filter['filter[project_id]']" :items="getProjectList" label="Project" />
-                </v-col>
-                <v-col :cols="4">
                   <v-autocomplete v-model="filter['filter[status]']" :items="getTaskStatus" label="Status" />
                 </v-col>
               </v-row>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn text @click="handleResetFilter">Reset</v-btn>
-              <v-btn tile color="primary" @click="handleApplyFilter">Apply</v-btn>
+              <v-btn text @click="handleResetFilter">Limpar</v-btn>
+              <v-btn tile color="primary" @click="handleApplyFilter">Aplicar</v-btn>
             </v-card-actions>
           </v-card>
           <v-card-text class="pa-0">
@@ -55,7 +52,6 @@
               :items-per-page="itemsPerPage"
               :page.sync="filter['page']"
               item-key="id"
-              show-select
               @update:page="handlePageChanged"
             >
               <template #[`item.status`]="{ item }">
@@ -111,39 +107,42 @@ export default {
     return {
       showDialog: false,
       search: '',
-      loadingItems: false,
+      loadingItems: true,
       selectedItem: null,
-      serverItemsLength: 0,
-      itemsPerPage: 15,
-      showFilter: true,
+      serverItemsLength: 10,
+      itemsPerPage: 10,
+      showFilter: false,
       filter: {
         page: 1,
         'filter[name]': null,
-        'filter[project_id]': null,
         'filter[status]': null,
       },
       headers: [
         {
-          text: 'Project',
-          value: 'project.name',
+          text: 'Id',
+          value: 'id',
         },
         {
-          text: 'Task',
-          value: 'name',
+          text: 'Tarefa',
+          value: 'title',
         },
         {
-          text: 'Description',
+          text: 'Descrição',
           value: 'description',
-        },
-        {
-          text: 'slug',
-          value: 'slug',
         },
         {
           text: 'Status',
           value: 'status',
-          width: 100,
+          width: 150,
         },
+        /* {
+          text: 'Criado',
+          value: 'created_at',
+        },
+        {
+          text: 'Modificado',
+          value: 'updated_at',
+        }, */
         {
           text: 'Action',
           value: 'action',
@@ -152,12 +151,12 @@ export default {
       items: [],
       actions: [
         {
-          text: 'Edit Item',
+          text: 'Editar',
           icon: 'mdi-pencil',
           click: this.handleEditItem,
         },
         {
-          text: 'Delete Item',
+          text: 'Deletar',
           icon: 'mdi-close',
           click: this.handleDeleteItem,
         },
@@ -165,7 +164,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getTaskStatus', 'getProjectList']),
+    ...mapGetters(['getTaskStatus']),
   },
   watch: {
     '$route.query': {
@@ -184,7 +183,7 @@ export default {
       return filter
     },
     transformQuery(query) {
-      const numbers = ['filter[project_id]', 'filter[status]', 'page']
+      const numbers = ['filter[status]', 'page']
       for (let key in query) {
         if (numbers.includes(key)) {
           const val = query[key] ? parseInt(query[key]) : query[key]
@@ -197,7 +196,6 @@ export default {
       this.filter = {
         page: 1,
         'filter[name]': null,
-        'filter[project_id]': null,
         'filter[status]': null,
       }
     },
@@ -206,9 +204,10 @@ export default {
       this.items = []
       return this.$store
         .dispatch('fetchTask', query)
-        .then(({ data, meta }) => {
-          this.items = data
-          this.serverItemsLength = meta.total
+        .then((resp) => {
+          this.items = resp
+
+          this.serverItemsLength = resp.lenght
           this.loadingItems = false
         })
         .catch(() => {
@@ -263,7 +262,7 @@ export default {
       })
     },
     handleApplyFilter() {
-      this.filter.t = Date.now()
+      //this.filter.t = Date.now()
       this.$router.replace({
         path: this.$route.path,
         query: this.filter,

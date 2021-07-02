@@ -2,15 +2,6 @@
   <div class="kanboard">
     <v-container>
       <v-row>
-        <v-col :cols="12">
-          <v-autocomplete
-            v-model="project_id"
-            :items="getProjectList"
-            label="Select Project"
-            @change="handleProjectChange"
-          >
-          </v-autocomplete>
-        </v-col>
         <template v-for="col in getTaskStatus">
           <v-col :key="col.value">
             <v-card :loading="loading">
@@ -67,19 +58,18 @@ export default {
   mixins: [TooltipMixin],
   data() {
     return {
-      project_id: 1,
       showDialog: false,
       loading: false,
       items: [],
       selectedItem: null,
       actions: [
         {
-          text: 'Edit Item',
+          text: 'Editar',
           icon: 'mdi-pencil',
           click: this.handleEditItem,
         },
         {
-          text: 'Delete Item',
+          text: 'Deletar',
           icon: 'mdi-close',
           click: this.handleDeleteItem,
         },
@@ -87,10 +77,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getTaskStatus', 'getProjectList']),
+    ...mapGetters(['getTaskStatus']),
   },
   created() {
-    this.$store.dispatch('fetchProject')
+    //this.$store.dispatch('fetchProject')
     this.fetchTask()
     this.$nextTick(() => {
       this.getTaskStatus.forEach((item) => {
@@ -110,13 +100,11 @@ export default {
     fetchTask() {
       this.items = []
       this.loading = true
-      const query = {
-        'filter[project_id]': this.project_id,
-      }
+      const query = {}
       this.$store
         .dispatch('fetchTask', query)
         .then((resp) => {
-          this.items = resp.data
+          this.items = resp
           this.loading = false
         })
         .catch(() => {
@@ -126,9 +114,6 @@ export default {
     computeAvatar(username) {
       const avatar = this.getUsername === username ? this.getAvatar : ''
       return avatar
-    },
-    handleProjectChange() {
-      this.fetchTask()
     },
     getTaskByStatus(status) {
       return this.items.filter((item) => item.status === status)

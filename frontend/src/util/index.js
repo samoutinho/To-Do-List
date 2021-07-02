@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { humanReadableFileSize } from 'vuetify/lib/util/helpers'
 
-const formatDate = (d, dateFormat = 'MM/dd/yyyy') => {
+const formatDate = (d, dateFormat = 'dd/mm/yyyy') => {
   return format(d, dateFormat)
 }
 

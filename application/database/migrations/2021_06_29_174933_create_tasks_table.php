@@ -17,7 +17,7 @@ class CreateTasksTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->text('description');
-            $table->enum('status', array('todo', 'doing'));
+            $table->enum('status', array('todo', 'doing','done'));
             $table->date('created_at');
             $table->date('updated_at');
         });

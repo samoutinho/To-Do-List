@@ -20,6 +20,7 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'tasks'], function () use ($router) {
     $router->get('/', 'TaskController@index');
+    $router->get('/all', 'TaskController@indexAll');
     $router->get('/{task}', 'TaskController@show');
     $router->post('/', 'TaskController@store');
     $router->put('/{task}', 'TaskController@update');

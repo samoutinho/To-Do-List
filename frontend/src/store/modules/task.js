@@ -1,33 +1,24 @@
 import request from '@/util/request'
 
 const state = {
-  projects: [],
   taskStatus: [
     {
-      text: 'Todo',
-      value: 0,
+      text: 'A fazer',
+      value: 'todo',
     },
     {
-      text: 'Doing',
-      value: 1,
+      text: 'Fazendo',
+      value: 'doing',
     },
     {
-      text: 'Done',
-      value: 2,
+      text: 'Feito',
+      value: 'done',
     },
   ],
 }
 
 // getters
 const getters = {
-  getProjectList: (state) => {
-    return state.projects.map((item) => {
-      return {
-        text: item.name,
-        value: item.id,
-      }
-    })
-  },
   getTaskStatus: (state) => state.taskStatus,
   getTaskStatusByValue: (state) => (value) => {
     const find = state.taskStatus.find(item.value === value)
@@ -37,17 +28,14 @@ const getters = {
 
 // actions
 const actions = {
-  fetchProject(context, query) {
+  fetchTask(context, query) {
     return request({
-      url: `pms/project`,
+      url: `tasks/all`,
       method: 'get',
       params: query,
-    }).then((resp) => {
-      context.commit('SET_PROJECT', resp.data)
-      return resp
     })
   },
-  fetchTask(context, query) {
+  fetchTaskPaginated(context, query) {
     return request({
       url: `tasks`,
       method: 'get',
@@ -100,11 +88,7 @@ const actions = {
 }
 
 // mutations
-const mutations = {
-  SET_PROJECT(state, data) {
-    state.projects = data
-  },
-}
+const mutations = {}
 
 export default {
   namespace: true,
