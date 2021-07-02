@@ -31,9 +31,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getProjectList', 'getTaskStatus']),
+    ...mapGetters(['getTaskStatus']),
     formTitle() {
-      return this.item ? 'Edit Task - ' + this.item.name : 'Create Task'
+      return this.item ? 'Editar Tarefa - ' + this.item.name : 'Criar Tarefa'
     },
     formItems() {
       return [
@@ -41,29 +41,10 @@ export default {
           cols: 6,
           element: VTextField,
           props: {
-            name: 'name',
+            name: 'title',
             required: true,
             outlined: true,
             rules: [(v) => !!v || 'Name is required'],
-          },
-        },
-        {
-          cols: 6,
-          element: VTextField,
-          props: {
-            name: 'owner',
-            required: true,
-            outlined: true,
-          },
-        },
-        {
-          cols: 6,
-          element: VAutocomplete,
-          props: {
-            name: 'project_id',
-            label: 'Project',
-            outlined: true,
-            items: this.getProjectList,
           },
         },
         {
@@ -81,15 +62,6 @@ export default {
           element: VTextarea,
           props: {
             name: 'description',
-            outlined: true,
-          },
-        },
-        {
-          cols: 12,
-          element: VEditor,
-          default: 'type',
-          props: {
-            name: 'content',
             outlined: true,
           },
         },
