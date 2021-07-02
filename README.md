@@ -12,3 +12,5 @@
 
 ### Acessar o backend pela url: http://localhost:8080
 
+## DER 
+### Arquivo DER.png na raiz do projeto
